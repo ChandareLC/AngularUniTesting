@@ -7,13 +7,14 @@ import {Post} from "../../model/post";
   styleUrls: ['./post.component.sass']
 })
 export class PostComponent {
-  @Input() post: Post | null = null;
+  @Input() post !: Post ;
   @Output() delete = new EventEmitter<void>();
 
   constructor() { }
   onDeletePost(event:Event){
     event.stopPropagation();
-    this.delete.emit();
+    // @ts-ignore
+    this.delete.emit(this.post);
   }
 
 }
