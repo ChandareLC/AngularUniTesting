@@ -1,10 +1,25 @@
 import {PostComponent} from "./post.component";
 import {Post} from "../../model/post";
 import {first} from "rxjs";
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
 describe('Post Component', () => {
-  it('should raise an event when the delete post is clicked', ()=>{
-    const comp = new PostComponent();
+  let fixture:ComponentFixture<PostComponent>;
+  let comp:PostComponent
+  beforeEach(()=> {
+    TestBed.configureTestingModule({
+      declarations:[PostComponent],
+    });
+     fixture = TestBed.createComponent(PostComponent);
+     comp = fixture.componentInstance;
+
+  })
+  it('should create component using TestBed', ()=>{
+    expect(comp).toBeDefined();
+  })
+
+   it('should raise an event when the delete post is clicked', ()=>{
+
     const post: Post ={ id: 1, body:'body 1',title:'dsdsd'};
     comp.post= post;
 
