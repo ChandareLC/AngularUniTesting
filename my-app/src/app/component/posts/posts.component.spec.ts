@@ -6,6 +6,7 @@ import {ComponentFixture, TestBed} from "@angular/core/testing";
 import {PostService} from "../../services/Post/post.service";
 import {Component, Input, NO_ERRORS_SCHEMA} from "@angular/core";
 import {By} from "@angular/platform-browser";
+import {PostComponent} from "../post/post.component";
 
 // @ts-ignore
 // @ts-ignore
@@ -16,17 +17,6 @@ describe('Posts Component',
     let postService: any;
     let mockPostService: any;
     let fixture: ComponentFixture<PostsComponent>;
-
-  // @ts-ignore
-    @Component({
-    selector: 'app-post',
-    template: '<div></div>',
-  })
-
-   class FakeComponent {
-      @Input() post!: Post;
-    }
-
 
     beforeEach(() => {
       POSTS = [
@@ -50,19 +40,25 @@ describe('Posts Component',
       mockPostService = jasmine.createSpyObj(['getPosts', 'deletePost']);
 
       TestBed.configureTestingModule({
-        declarations: [PostsComponent,FakeComponent],
+        declarations: [PostsComponent,PostComponent],
         providers: [
           {
             provide: PostService,
             useValue: mockPostService,
           },
         ],
-        // schemas:[NO_ERRORS_SCHEMA]
+         schemas:[NO_ERRORS_SCHEMA]
       });
 
       fixture = TestBed.createComponent(PostsComponent);
       component = fixture.componentInstance;
     });
+    it('should create extract same number of Post component with Posts', ()=>{
+      mockPostService.getPosts.and.returnValue(of(POSTS));
+      fixture.detectChanges();
+      const postComponentDEs = fixture.debugElement.queryAll(By.directive(PostComponent));
+      expect(postComponentDEs.length).toEqual(POSTS.length);
+    })
 
     it('should set posts from the service directly', () => {
       mockPostService.getPosts.and.returnValue(of(POSTS));
