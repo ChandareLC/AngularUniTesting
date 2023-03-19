@@ -2,6 +2,7 @@ import {PostComponent} from "./post.component";
 import {Post} from "../../model/post";
 import {first} from "rxjs";
 import {ComponentFixture, TestBed} from "@angular/core/testing";
+import {NO_ERRORS_SCHEMA} from "@angular/core";
 
 describe('Post Component', () => {
   let fixture:ComponentFixture<PostComponent>;
@@ -9,6 +10,8 @@ describe('Post Component', () => {
   beforeEach(()=> {
     TestBed.configureTestingModule({
       declarations:[PostComponent],
+      //No error in the console
+      schemas: [NO_ERRORS_SCHEMA],
     });
      fixture = TestBed.createComponent(PostComponent);
      comp = fixture.componentInstance;
@@ -17,6 +20,16 @@ describe('Post Component', () => {
   it('should create component using TestBed', ()=>{
     expect(comp).toBeDefined();
   })
+
+  it('should render the post title in the anchor element', ()=>{
+    const post: Post ={ id: 1, body:'body 1',title:'title 1'};
+    comp.post=post;
+    fixture.detectChanges();
+    const postElement: HTMLElement = fixture.nativeElement;
+    const a = postElement.querySelector('a');
+    expect(a?.textContent).toContain(post.title);
+  })
+
 
    it('should raise an event when the delete post is clicked', ()=>{
 
