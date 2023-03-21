@@ -77,6 +77,19 @@ describe('Posts Component',
       }
     })
 
+    it('should check whether exact post is sending to PostComponent',()=>{
+      mockPostService.getPosts.and.returnValue(of(POSTS));
+      fixture.detectChanges();
+      const postComponentDes = fixture.debugElement.queryAll(By.directive(PostComponent));
+
+      for(let i=0;i<postComponentDes.length;i++){
+        let postComponentInstance=postComponentDes[0].componentInstance as PostComponent;
+
+        expect(postComponentInstance.post.title).toEqual(POSTS[0].title)
+
+      }
+    })
+
 
 
     it('should set posts from the service directly', () => {
