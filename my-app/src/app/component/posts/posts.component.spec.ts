@@ -65,6 +65,20 @@ describe('Posts Component',
 
     })
 
+    it('should check whether extract post is sending to PostComponent',()=>{
+      mockPostService.getPosts.and.returnValue(of(POSTS));
+      fixture.detectChanges();
+      // having 3 child component
+      const postComponentDEs = fixture.debugElement.queryAll(By.directive(PostComponent));
+      for(let i=0;i<postComponentDEs.length;i++){
+        let postComponentInstance=postComponentDEs[i]
+          .componentInstance as PostComponent;
+        expect(postComponentInstance.post.title).toEqual(POSTS[i].title);
+      }
+    })
+
+
+
     it('should set posts from the service directly', () => {
       mockPostService.getPosts.and.returnValue(of(POSTS));
       fixture.detectChanges();
