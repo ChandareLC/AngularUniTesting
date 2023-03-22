@@ -1,9 +1,14 @@
 import {LoggerService} from "./logger.service";
+import {TestBed} from "@angular/core/testing";
+import {of} from "rxjs";
 
 describe('LoggerService',()=>{
   let service: LoggerService;
   beforeEach(() => {
-    service = new LoggerService();
+    TestBed.configureTestingModule({
+      providers:[LoggerService],
+    });
+    service = TestBed.inject(LoggerService);
   })
 
   it('should not have any message at starting', ()=> {
