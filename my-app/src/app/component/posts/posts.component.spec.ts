@@ -127,5 +127,25 @@ describe('Posts Component',
         component.delete(POSTS[1]);
         expect(mockPostService.deletePost).toHaveBeenCalledTimes(1)
       });
+      it('should call delete method when post component button is clicked', ()=> {
+        spyOn(component,'delete');
+        mockPostService.getPosts.and.returnValue(of(POSTS));
+        fixture.detectChanges();
+
+        let postComponetDEs = fixture.debugElement.queryAll(
+          By.directive(PostComponent)
+        );
+        for(let i=0;i<postComponetDEs.length;i++) {
+          postComponetDEs[i]
+            .query(By.css('button'))
+            .triggerEventHandler('click', {
+              preventDefault: () => {
+              }
+            });
+          expect(component.delete).toHaveBeenCalledWith(POSTS[i]);
+        }
+      });;
+
+
+      })
     });
-  });

@@ -12,7 +12,7 @@ export class PostComponent {
 
   constructor() { }
   onDeletePost(event:Event){
-    event.stopPropagation();
+    event.preventDefault();
     // @ts-ignore
     this.delete.emit(this.post);
   }
