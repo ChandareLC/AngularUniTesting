@@ -8,12 +8,11 @@ import {Post} from "../../model/post";
 })
 export class PostComponent {
   @Input() post !: Post ;
-  @Output() delete = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<Post>();
 
   constructor() { }
   onDeletePost(event:Event){
     event.preventDefault();
-    // @ts-ignore
     this.delete.emit(this.post);
   }
 
